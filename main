@@ -1,0 +1,20 @@
+import PyPDF2
+from docx import Document
+
+def pdf_to_word(input_pdf, output_word):
+    pdf_reader = PyPDF2.PdfFileReader(input_pdf)
+    doc = Document()
+
+    for page_num in range(pdf_reader.numPages):
+        page = pdf_reader.getPage(page_num)
+        text = page.extract_text()
+        doc.add_paragraph(text)
+
+    doc.save(output_word)
+    print("Conversion complete. Word document saved as", output_word)
+
+# Example usage
+input_pdf = "input.pdf"
+output_word = "output.docx"
+
+pdf_to_word(input_pdf, output_word)
